@@ -17,11 +17,18 @@ leptos_server = { workspace = true }
 leptos_config = { workspace = true }
 leptos-spin-macro = { git = "https://github.com/fermyon/leptos-spin", optional = true}
 tracing = "0.1"
+reactive_graph = { workspace = true }
+tachys = { workspace = true, features = ["reactive_graph"] }
 typed-builder = "0.18"
 typed-builder-macro = "0.18"
 serde = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
-server_fn = { workspace = true, features = ["form-redirects", "browser", "url", "cbor"] }
+server_fn = { workspace = true, features = [
+  "form-redirects",
+  "browser",
+  "url",
+  "cbor",
+] }
 web-sys = { version = "0.3.63", features = [
   "ShadowRoot",
   "ShadowRootInit",
@@ -60,6 +67,7 @@ nightly = [
   "leptos_macro/nightly",
   "leptos_reactive/nightly",
   "leptos_server/nightly",
+  "tachys/nightly",
 ]
 serde = ["leptos_reactive/serde"]
 serde-lite = ["leptos_reactive/serde-lite"]
@@ -80,7 +88,7 @@ experimental-islands = [
 ]
 trace-component-props = [
   "leptos_dom/trace-component-props",
-  "leptos_macro/trace-component-props"
+  "leptos_macro/trace-component-props",
 ]
 
 [package.metadata.cargo-all-features]
@@ -91,7 +99,7 @@ denylist = [
   "rustls",
   "default-tls",
   "wasm-bindgen",
-  "trace-component-props"
+  "trace-component-props",
 ]
 skip_feature_sets = [
   [
