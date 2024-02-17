@@ -169,6 +169,7 @@ pub use into_view::IntoView;
 pub use tachys;
 
 mod mount;
+pub use any_spawner::Executor;
 pub use mount::*;
 /*mod additional_attributes;
 pub use additional_attributes::*;
