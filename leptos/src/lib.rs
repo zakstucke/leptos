@@ -140,6 +140,11 @@
 //! # }
 //! ```
 
+#![cfg_attr(feature = "nightly", feature(fn_traits))]
+#![cfg_attr(feature = "nightly", feature(unboxed_closures))]
+#![cfg_attr(feature = "nightly", feature(auto_traits))]
+#![cfg_attr(feature = "nightly", feature(negative_impls))]
+
 extern crate self as leptos;
 
 pub mod prelude {
@@ -147,6 +152,7 @@ pub mod prelude {
     pub use tachys::prelude::*;
 }
 
+pub mod callback;
 pub mod children;
 pub mod component;
 mod for_loop;
@@ -166,6 +172,7 @@ pub use typed_builder;
 pub use typed_builder_macro;
 mod into_view;
 pub use into_view::IntoView;
+pub use leptos_dom;
 pub use tachys;
 
 mod mount;
