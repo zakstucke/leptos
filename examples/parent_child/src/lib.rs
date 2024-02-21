@@ -39,10 +39,10 @@ pub fn App() -> impl IntoView {
         <main>
             <p
                 // class: attributes take F: Fn() => bool, and these signals all implement Fn()
-                /*class:red=red
+                class:red=red
                 class:right=right
                 class:italics=italics
-                class:smallcaps=smallcaps*/
+                class:smallcaps=smallcaps
             >
                 "Lorem ipsum sit dolor amet."
             </p>
@@ -85,15 +85,14 @@ pub fn ButtonA(
 #[component]
 pub fn ButtonB<F>(
     /// Callback that will be invoked when the button is clicked.
-    #[prop(into)]
-    mut on_click: F,
+    on_click: F,
 ) -> impl IntoView
 where
     F: FnMut(MouseEvent) + 'static,
 {
     view! {
         <button
-            on:click=move |_ev| { }
+            on:click=on_click
         >
             "Toggle Right"
         </button>
