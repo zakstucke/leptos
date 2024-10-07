@@ -145,6 +145,8 @@
 
 extern crate self as leptos;
 
+pub use reactive_graph;
+
 /// Exports all the core types of the library.
 pub mod prelude {
     // Traits
