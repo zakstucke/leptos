@@ -893,15 +893,17 @@ struct TypedBuilderOpts {
     default_with_value: Option<syn::Expr>,
     strip_option: bool,
     into: bool,
+    name: Ident,
 }
 
 impl TypedBuilderOpts {
-    fn from_opts(opts: &PropOpt, is_ty_option: bool) -> Self {
+    fn from_opts(name: &PatIdent, opts: &PropOpt, is_ty_option: bool) -> Self {
         Self {
             default: opts.optional || opts.optional_no_strip || opts.attrs,
             default_with_value: opts.default.clone(),
             strip_option: opts.strip_option || opts.optional && is_ty_option,
             into: opts.into,
+            name: name.ident.clone(),
         }
     }
 }
@@ -937,7 +939,8 @@ impl ToTokens for TypedBuilderOpts {
         };
 
         let strip_option = if self.strip_option {
-            quote! { strip_option, }
+            let nostrip_method_name = format_ident!("__nostrip_{}", self.name);
+            quote! { strip_option(fallback = #nostrip_method_name), }
         } else {
             quote! {}
         };
@@ -979,8 +982,11 @@ fn prop_builder_fields(
                 ty,
             } = prop;
 
-            let builder_attrs =
-                TypedBuilderOpts::from_opts(prop_opts, is_option(ty));
+            let builder_attrs = TypedBuilderOpts::from_opts(
+                &prop.name,
+                prop_opts,
+                is_option(ty),
+            );
 
             let builder_docs = prop_to_doc(prop, PropDocStyle::Inline);
 
@@ -1026,7 +1032,7 @@ fn prop_serializer_fields(vis: &Visibility, props: &[Prop]) -> TokenStream {
                 } = prop;
 
                 let builder_attrs =
-                    TypedBuilderOpts::from_opts(prop_opts, is_option(ty));
+                    TypedBuilderOpts::from_opts(name, prop_opts, is_option(ty));
                 let serde_attrs = builder_attrs.to_serde_tokens();
 
                 let PatIdent { ident, by_ref, .. } = &name;
