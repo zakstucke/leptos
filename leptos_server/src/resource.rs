@@ -19,6 +19,7 @@ use reactive_graph::{
         ArcAsyncDerived, ArcMemo, AsyncDerived, AsyncDerivedFuture,
         AsyncDerivedRefFuture,
     },
+    effect::in_effect_scope,
     graph::{Source, ToAnySubscriber},
     owner::Owner,
     prelude::*,
