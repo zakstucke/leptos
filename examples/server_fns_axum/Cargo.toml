@@ -12,6 +12,7 @@ futures = "0.3.30"
 http = "1.1"
 leptos = { path = "../../leptos" }
 leptos_axum = { path = "../../integrations/axum", optional = true }
+leptos_router = { path = "../../router" }
 server_fn = { path = "../../server_fn", features = [
   "serde-lite",
   "rkyv",
@@ -21,7 +22,10 @@ server_fn = { path = "../../server_fn", features = [
 log = "0.4.22"
 simple_logger = "5.0"
 serde = { version = "1.0", features = ["derive"] }
+uuid = { version = "1", features = ["v4"] }
+getrandom = { version = "0.2", features = ["js"] }
 axum = { version = "0.7.5", optional = true }
+axum-extra = { version = "0.9", features = ["cookie"], optional = true }
 tower = { version = "0.4.13", optional = true }
 tower-http = { version = "0.5.2", features = [
   "fs",
@@ -47,6 +51,7 @@ rkyv = { version = "0.8.8" }
 hydrate = ["leptos/hydrate"]
 ssr = [
   "dep:axum",
+  "dep:axum-extra",
   "dep:tower",
   "dep:tower-http",
   "dep:tokio",
