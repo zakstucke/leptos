@@ -36,7 +36,7 @@ where
     T::State: 'static,
 {
     fn apply_attr(self: Box<Self>, attr: AnyAttribute) -> AnyView {
-        self.add_any_attr(attr).into_any()
+        self.into_any()
     }
 }
 
